@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conflict Management Styles Matching Activity</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .instructions {
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .check-btn {
+            background-color: #4285f4;
+            color: white;
+        }
+        .reset-btn {
+            background-color: #7c7c7c;
+            color: white;
+        }
+        .check-btn:disabled {
+            background-color: #a0c0f0;
+            cursor: not-allowed;
+        }
+        .results {
+            background-color: #fffde7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .grid-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        .header-cell {
+            background-color: #e0e0e0;
+            padding: 10px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .style-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .style-cell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            height: 120px;
+        }
+        .style-icon {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+        }
+        .style-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .style-name-cn {
+            font-size: 0.9em;
+            color: #666;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        
+        select option {
+            padding: 8px;
+            white-space: normal;
+            min-height: 40px;
+            line-height: 1.5;
+        }
+        
+        /* Dropdown menu styling */
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .dropdown-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .dropdown-btn:after {
+            content: '▼';
+            font-size: 0.8em;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            width: 100%;
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 1000;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .dropdown-item {
+            padding: 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .dropdown-item-en {
+            margin-bottom: 5px;
+        }
+        
+        .dropdown-item-cn {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .show {
+            display: block;
+        }
+        
+        /* For Firefox to display multiline options */
+        @-moz-document url-prefix() {
+            select {
+                overflow: auto;
+            }
+            select option {
+                height: auto;
+            }
+        }
+        .choice-cell {
+            position: relative;
+        }
+        .translation {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+        }
+        .correct-answer {
+            font-size: 0.85em;
+            color: #43a047;
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #f1f8e9;
+            border-radius: 5px;
+            border-left: 3px solid #43a047;
+        }
+        
+        .correct-option {
+            padding: 8px;
+            line-height: 1.5;
+        }
+        .correct {
+            background-color: #e8f5e9;
+            border: 1px solid #43a047;
+        }
+        .incorrect {
+            background-color: #ffebee;
+            border: 1px solid #e57373;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Conflict Management Styles Matching Activity</h1>
+        
+        <div class="instructions">
+            <p>Match each conflict management style with its correct description and scenario.</p>
+        </div>
+        
+        <div class="buttons">
+            <button id="check-button" class="check-btn" disabled>Check Answers</button>
+            <button id="reset-button" class="reset-btn">Reset</button>
+        </div>
+        
+        <div id="results" class="results" style="display: none;">
+            <p>Your Score: <span id="score">0</span> / 10</p>
+        </div>
+        
+        <div class="grid-header">
+            <div class="header-cell">Style</div>
+            <div class="header-cell">Description</div>
+            <div class="header-cell">When to Use</div>
+        </div>
+        
+        <div id="styles-container">
+            <!-- Styles will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // Define the conflict management styles data
+        const styles = [
+            { 
+                id: 1, 
+                name: "Avoiding", 
+                nameCn: "回避", 
+                icon: "🐢", 
+                color: "#90EE90"
+            },
+            { 
+                id: 2, 
+                name: "Competing", 
+                nameCn: "竞争", 
+                icon: "🦈", 
+                color: "#87CEFA" 
+            },
+            { 
+                id: 3, 
+                name: "Collaborating", 
+                nameCn: "合作", 
+                icon: "🦉", 
+                color: "#CD853F" 
+            },
+            { 
+                id: 4, 
+                name: "Compromising", 
+                nameCn: "妥协", 
+                icon: "🦊", 
+                color: "#FFA07A" 
+            },
+            { 
+                id: 5, 
+                name: "Accommodating", 
+                nameCn: "迁就", 
+                icon: "🧸", 
+                color: "#DEB887" 
+            }
+        ];
+
+        const descriptions = [
+            { 
+                id: 1, 
+                text: "Withdrawing from conflict; avoiding the issue completely.", 
+                textCn: "退出冲突；完全避免问题。" 
+            },
+            { 
+                id: 2, 
+                text: "Pursuing own goals at the expense of others; using power and aggression.", 
+                textCn: "以牺牲他人为代价追求自己的目标；使用权力和攻击性行为。" 
+            },
+            { 
+                id: 3, 
+                text: "Working together to find a solution that fully satisfies everyone's concerns.", 
+                textCn: "共同努力找到完全满足所有人关切的解决方案。" 
+            },
+            { 
+                id: 4, 
+                text: "Finding a middle ground; both parties give up something to reach a solution.", 
+                textCn: "寻找中间立场；双方都放弃一些东西以达成解决方案。" 
+            },
+            { 
+                id: 5, 
+                text: "Putting others' needs before your own; self-sacrifice to maintain goodwill.", 
+                textCn: "将他人的需求置于自己之前；为维持友好关系而自我牺牲。" 
+            }
+        ];
+
+        const scenarios = [
+            { 
+                id: 1, 
+                text: "When the issue is trivial or more important issues are pressing.", 
+                textCn: "当问题微不足道或有更重要的问题需要处理时。" 
+            },
+            { 
+                id: 2, 
+                text: "When quick, decisive action is needed or unpopular decisions must be implemented.", 
+                textCn: "当需要快速、果断的行动或必须实施不受欢迎的决定时。" 
+            },
+            { 
+                id: 3, 
+                text: "When both sets of concerns are too important to be compromised.", 
+                textCn: "当双方的关切都太重要，不能妥协时。" 
+            },
+            { 
+                id: 4, 
+                text: "When a temporary solution is needed for complex issues.", 
+                textCn: "当复杂问题需要临时解决方案时。" 
+            },
+            { 
+                id: 5, 
+                text: "When preserving harmony and avoiding disruption is the priority.", 
+                textCn: "当保持和谐、避免冲突是首要任务时。" 
+            }
+        ];
+
+        // State variables
+        let shuffledDescriptions = [];
+        let shuffledScenarios = [];
+        let selectedDescriptions = {};
+        let selectedScenarios = {};
+        let showResults = false;
+
+        // DOM elements
+        const checkButton = document.getElementById('check-button');
+        const resetButton = document.getElementById('reset-button');
+        const resultsDiv = document.getElementById('results');
+        const scoreSpan = document.getElementById('score');
+        const stylesContainer = document.getElementById('styles-container');
+
+        // Initialize the app
+        function init() {
+            shuffleArrays();
+            renderStyles();
+            attachEventListeners();
+        }
+
+        // Shuffle the descriptions and scenarios
+        function shuffleArrays() {
+            shuffledDescriptions = [...descriptions].sort(() => Math.random() - 0.5);
+            shuffledScenarios = [...scenarios].sort(() => Math.random() - 0.5);
+        }
+
+        // Render the styles and their selection dropdowns
+        function renderStyles() {
+            stylesContainer.innerHTML = '';
+            
+            styles.forEach(style => {
+                const row = document.createElement('div');
+                row.className = 'style-row';
+                row.innerHTML = `
+                    <div class="style-cell" style="background-color: ${style.color}40">
+                        <div class="style-icon">${style.icon}</div>
+                        <div class="style-name">${style.name}</div>
+                        <div class="style-name-cn">${style.nameCn}</div>
+                    </div>
+                    
+                    <div class="choice-cell" id="desc-cell-${style.id}">
+                        <select id="desc-select-${style.id}" ${showResults ? 'disabled' : ''} size="1">
+                            <option value="">Select description...</option>
+                            ${generateOptions(shuffledDescriptions, selectedDescriptions, style.id)}
+                        </select>
+                        <div id="desc-correct-${style.id}" class="correct-answer" style="display: none;"></div>
+                    </div>
+                    
+                    <div class="choice-cell" id="scen-cell-${style.id}">
+                        <select id="scen-select-${style.id}" ${showResults ? 'disabled' : ''} size="1">
+                            <option value="">Select scenario...</option>
+                            ${generateOptions(shuffledScenarios, selectedScenarios, style.id)}
+                        </select>
+                        <div id="scen-correct-${style.id}" class="correct-answer" style="display: none;"></div>
+                    </div>
+                `;
+                
+                stylesContainer.appendChild(row);
+            });
+            
+            // Add event listeners to the new select elements
+            styles.forEach(style => {
+                const descSelect = document.getElementById(`desc-select-${style.id}`);
+                const scenSelect = document.getElementById(`scen-select-${style.id}`);
+                
+                if (selectedDescriptions[style.id]) {
+                    descSelect.value = selectedDescriptions[style.id];
+                }
+                
+                if (selectedScenarios[style.id]) {
+                    scenSelect.value = selectedScenarios[style.id];
+                }
+                
+                descSelect.addEventListener('change', function() {
+                    handleSelection('desc', style.id, this.value);
+                });
+                
+                scenSelect.addEventListener('change', function() {
+                    handleSelection('scen', style.id, this.value);
+                });
+            });
+            
+            // If results are being shown, update the styling
+            if (showResults) {
+                showCorrectAnswers();
+            }
+            
+            updateCheckButtonState();
+        }
+
+        // Generate options for a select element
+        function generateOptions(items, selectedItems, currentStyleId) {
+            return items.map(item => {
+                const isSelected = selectedItems[currentStyleId] === item.id.toString();
+                const isDisabled = Object.values(selectedItems).includes(item.id.toString()) && !isSelected;
+                
+                return `<option value="${item.id}" ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}>${item.text} | ${item.textCn}</option>`;
+            }).join('');
+        }
+
+        // Handle selection of a description or scenario
+        function handleSelection(type, styleId, value) {
+            if (type === 'desc') {
+                selectedDescriptions[styleId] = value;
+                // No need to update translation, it's in the option text
+            } else {
+                selectedScenarios[styleId] = value;
+                // No need to update translation, it's in the option text
+            }
+            
+            updateCheckButtonState();
+            renderStyles();  // Re-render to update disabled options
+        }
+
+        // No longer needed as translations are shown directly in options
+
+        // Update the state of the check button
+        function updateCheckButtonState() {
+            const allSelected = 
+                Object.keys(selectedDescriptions).length === 5 && 
+                Object.keys(selectedScenarios).length === 5;
+            
+            checkButton.disabled = !allSelected;
+        }
+
+        // Check the answers and show results
+        function checkAnswers() {
+            showResults = true;
+            resultsDiv.style.display = 'block';
+            scoreSpan.textContent = calculateScore();
+            showCorrectAnswers();
+        }
+
+        // Show the correct answers
+        function showCorrectAnswers() {
+            styles.forEach(style => {
+                const descCell = document.getElementById(`desc-cell-${style.id}`);
+                const scenCell = document.getElementById(`scen-cell-${style.id}`);
+                const descSelect = document.getElementById(`desc-select-${style.id}`);
+                const scenSelect = document.getElementById(`scen-select-${style.id}`);
+                const descCorrect = document.getElementById(`desc-correct-${style.id}`);
+                const scenCorrect = document.getElementById(`scen-correct-${style.id}`);
+                
+                // Disable selects
+                descSelect.disabled = true;
+                scenSelect.disabled = true;
+                
+                // Check description answer
+                const isDescCorrect = selectedDescriptions[style.id] === style.id.toString();
+                if (isDescCorrect) {
+                    descCell.classList.add('correct');
+                } else {
+                    descCell.classList.add('incorrect');
+                    const correctDesc = descriptions.find(d => d.id === style.id);
+                    const correctDescHTML = `<div class="correct-option">
+                        <div>Correct: ${correctDesc.text}</div>
+                        <div>${correctDesc.textCn}</div>
+                    </div>`;
+                    descCorrect.innerHTML = correctDescHTML;
+                    descCorrect.style.display = 'block';
+                }
+                
+                // Check scenario answer
+                const isScenCorrect = selectedScenarios[style.id] === style.id.toString();
+                if (isScenCorrect) {
+                    scenCell.classList.add('correct');
+                } else {
+                    scenCell.classList.add('incorrect');
+                    const correctScen = scenarios.find(s => s.id === style.id);
+                    const correctScenHTML = `<div class="correct-option">
+                        <div>Correct: ${correctScen.text}</div>
+                        <div>${correctScen.textCn}</div>
+                    </div>`;
+                    scenCorrect.innerHTML = correctScenHTML;
+                    scenCorrect.style.display = 'block';
+                }
+            });
+        }
+
+        // Reset the activity
+        function reset() {
+            selectedDescriptions = {};
+            selectedScenarios = {};
+            showResults = false;
+            resultsDiv.style.display = 'none';
+            shuffleArrays();
+            renderStyles();
+        }
+
+        // Calculate the score
+        function calculateScore() {
+            let score = 0;
+            styles.forEach(style => {
+                if (selectedDescriptions[style.id] === style.id.toString()) score++;
+                if (selectedScenarios[style.id] === style.id.toString()) score++;
+            });
+            return score;
+        }
+
+        // Attach event listeners to buttons
+        function attachEventListeners() {
+            checkButton.addEventListener('click', checkAnswers);
+            resetButton.addEventListener('click', reset);
+        }
+
+        // Initialize the app when the page loads
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
