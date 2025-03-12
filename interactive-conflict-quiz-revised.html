@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conflict Management Style Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .statement {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            background-color: #f8f9fa;
+        }
+        .statement p {
+            margin: 0 0 5px 0;
+        }
+        .english {
+            font-weight: bold;
+        }
+        .chinese {
+            color: #555;
+        }
+        select {
+            padding: 5px;
+            margin-top: 5px;
+            width: 100%;
+            max-width: 200px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .results {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
+        }
+        .style-description {
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin-top: 15px;
+            border-left: 4px solid #3498db;
+        }
+        .animal-emoji {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .scale {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            color: #666;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Conflict Management Style Quiz</h1>
+    
+    <div class="instructions">
+        <h2>Instructions</h2>
+        <p>Listed below are 15 statements. Assign each statement a numerical value based on the following scale:</p>
+        
+        <div class="scale">
+            <span>5 = Always</span>
+            <span>4 = Very often</span>
+            <span>3 = Sometimes</span>
+            <span>2 = Not very often</span>
+            <span>1 = Rarely, if ever</span>
+        </div>
+    </div>
+    
+    <form id="quizForm">
+        <h2>Statements</h2>
+        
+        <div class="statement">
+            <p class="english">1. I argue my case with peers, colleagues, and coworkers to demonstrate the merits of the position I take.</p>
+            <p class="chinese">我与同伴、同事和工作伙伴争论我的观点，以展示我所持立场的优点。</p>
+            <select name="q1" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <div class="statement">
+            <p class="english">2. I try to reach compromises through negotiation.</p>
+            <p class="chinese">我尝试通过协商达成妥协。</p>
+            <select name="q2" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <div class="statement">
+            <p class="english">3. I attempt to meet the expectation of others.</p>
+            <p class="chinese">我努力满足他人的期望。</p>
+            <select name="q3" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <div class="statement">
+            <p class="english">4. I seek to investigate issues with others in order to find solutions that are mutually acceptable.</p>
+            <p class="chinese">我寻求与他人一起调查问题，以找到双方都能接受的解决方案。</p>
+            <select name="q4" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <div class="statement">
+            <p class="english">5. I am firm in resolve when it comes to defending my side of the issue.</p>
+            <p class="chinese">在捍卫我对问题的立场时，我的决心很坚定。</p>
+            <select name="q5" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <div class="statement">
+            <p class="english">6. I try to avoid being singled out, keeping conflict with others to myself.</p>
+            <p class="chinese">我尽量避免成为焦点，将与他人的冲突埋在心里。</p>
+            <select name="q6" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <div class="statement">
+            <p class="english">7. I uphold my solutions to problems.</p>
+            <p class="chinese">我坚持我对问题的解决方案。</p>
+            <select name="q7" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <div class="statement">
+            <p class="english">8. I compromise in order to reach solutions.</p>
+            <p class="chinese">我妥协以达成解决方案。</p>
+            <select name="q8" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <div class="statement">
+            <p class="english">9. I trade important information with others so that problems can be solved together.</p>
+            <p class="chinese">我与他人交换重要信息，以便共同解决问题。</p>
+            <select name="q9" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <div class="statement">
+            <p class="english">10. I avoid discussing my differences with others.</p>
+            <p class="chinese">我避免与他人讨论我的分歧。</p>
+            <select name="q10" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <div class="statement">
+            <p class="english">11. I try to accommodate the wishes of my peers and colleagues.</p>
+            <p class="chinese">我尽量满足同伴和同事的愿望。</p>
+            <select name="q11" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <div class="statement">
+            <p class="english">12. I seek to bring everyone's concerns out into the open in order to resolve disputes in the best possible way.</p>
+            <p class="chinese">我寻求将每个人的关切都公开，以便以最佳方式解决争端。</p>
+            <select name="q12" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <div class="statement">
+            <p class="english">13. I put forward middle positions in effort to break deadlocks.</p>
+            <p class="chinese">我提出折中立场，努力打破僵局。</p>
+            <select name="q13" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <div class="statement">
+            <p class="english">14. I accept the recommendations of colleagues, peers, and coworkers.</p>
+            <p class="chinese">我接受同事、同伴和工作伙伴的建议。</p>
+            <select name="q14" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <div class="statement">
+            <p class="english">15. I avoid hard feelings by keeping my disagreements with others to myself.</p>
+            <p class="chinese">我通过将与他人的分歧保留给自己来避免不快。</p>
+            <select name="q15" required>
+                <option value="">Select</option>
+                <option value="5">5 - Always</option>
+                <option value="4">4 - Very often</option>
+                <option value="3">3 - Sometimes</option>
+                <option value="2">2 - Not very often</option>
+                <option value="1">1 - Rarely, if ever</option>
+            </select>
+        </div>
+        
+        <button type="submit" id="submitBtn">Calculate Results</button>
+    </form>
+    
+    <div id="results" class="results">
+        <h2>Your Conflict Management Style Results</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Style</th>
+                    <th>Animal Symbol</th>
+                    <th>Score</th>
+                    <th>Ranking</th>
+                </tr>
+            </thead>
+            <tbody id="resultsTable">
+                <!-- Table content will be populated by JavaScript -->
+            </tbody>
+        </table>
+        
+        <div class="chart-container">
+            <canvas id="radarChart"></canvas>
+        </div>
+        
+        <h2>Understanding Your Results</h2>
+        
+        <div id="primaryStyleDescription" class="style-description">
+            <!-- Primary style description will be populated by JavaScript -->
+        </div>
+        
+        <div class="style-description">
+            <span class="animal-emoji">🦈</span>
+            <strong>Competing/Forcing (Shark):</strong>
+            <p>You focus on achieving your goals at the expense of others. You use power to win.</p>
+        </div>
+        
+        <div class="style-description">
+            <span class="animal-emoji">🦉</span>
+            <strong>Collaborating (Owl):</strong>
+            <p>You seek to find a solution that fully satisfies everyone's concerns. You work through differences to find a win-win solution.</p>
+        </div>
+        
+        <div class="style-description">
+            <span class="animal-emoji">🐢</span>
+            <strong>Avoiding (Turtle):</strong>
+            <p>You do not pursue your own concerns or those of others. You stay away from conflicts.</p>
+        </div>
+        
+        <div class="style-description">
+            <span class="animal-emoji">🧸</span>
+            <strong>Accommodating (Teddy Bear):</strong>
+            <p>You neglect your own concerns to satisfy the concerns of others. You yield to others' points of view.</p>
+        </div>
+        
+        <div class="style-description">
+            <span class="animal-emoji">🦊</span>
+            <strong>Compromising (Fox):</strong>
+            <p>You seek a middle ground. You give up some points to gain others, finding expedient, mutually acceptable solutions.</p>
+        </div>
+    </div>
+    
+    <script>
+        let radarChart = null;
+        
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get all form values
+            const formData = new FormData(this);
+            
+            // Calculate scores for each style
+            const competing = parseInt(formData.get('q1')) + parseInt(formData.get('q5')) + parseInt(formData.get('q7'));
+            const collaborating = parseInt(formData.get('q4')) + parseInt(formData.get('q9')) + parseInt(formData.get('q12'));
+            const avoiding = parseInt(formData.get('q6')) + parseInt(formData.get('q10')) + parseInt(formData.get('q15'));
+            const accommodating = parseInt(formData.get('q3')) + parseInt(formData.get('q11')) + parseInt(formData.get('q14'));
+            const compromising = parseInt(formData.get('q2')) + parseInt(formData.get('q8')) + parseInt(formData.get('q13'));
+            
+            // Create scores array for sorting and ranking
+            const scores = [
+                { style: "Competing/Forcing (Shark)", score: competing, emoji: "🦈" },
+                { style: "Collaborating (Owl)", score: collaborating, emoji: "🦉" },
+                { style: "Avoiding (Turtle)", score: avoiding, emoji: "🐢" },
+                { style: "Accommodating (Teddy Bear)", score: accommodating, emoji: "🧸" },
+                { style: "Compromising (Fox)", score: compromising, emoji: "🦊" }
+            ];
+            
+            // Sort by score (descending)
+            scores.sort((a, b) => b.score - a.score);
+            
+            // Assign rankings
+            scores.forEach((item, index) => {
+                item.rank = index + 1;
+            });
+            
+            // Populate the results table
+            const tableBody = document.getElementById('resultsTable');
+            tableBody.innerHTML = '';
+            
+            scores.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.style}</td>
+                    <td>${item.emoji}</td>
+                    <td>${item.score}</td>
+                    <td>${item.rank}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Display primary style description
+            const primaryStyle = scores[0];
+            document.getElementById('primaryStyleDescription').innerHTML = `
+                <span class="animal-emoji">${primaryStyle.emoji}</span>
+                <strong>${primaryStyle.style}</strong>
+                <p>Your primary conflict management style is ${primaryStyle.style}.</p>
+            `;
+            
+            // Create radar chart
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            
+            // If chart already exists, destroy it before creating a new one
+            if (radarChart) {
+                radarChart.destroy();
+            }
+            
+            // Create the chart data
+            const data = {
+                labels: ['Competing/Forcing (Shark)', 'Collaborating (Owl)', 'Avoiding (Turtle)', 'Accommodating (Teddy Bear)', 'Compromising (Fox)'],
+                datasets: [{
+                    label: 'Your Conflict Management Style',
+                    data: [competing, collaborating, avoiding, accommodating, compromising],
+                    fill: true,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    pointBackgroundColor: 'rgb(54, 162, 235)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(54, 162, 235)'
+                }]
+            };
+            
+            // Chart configuration
+            const config = {
+                type: 'radar',
+                data: data,
+                options: {
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 15,
+                            ticks: {
+                                stepSize: 3
+                            }
+                        }
+                    }
+                }
+            };
+            
+            // Create the chart
+            radarChart = new Chart(ctx, config);
+            
+            // Show results section
+            document.getElementById('results').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
