@@ -1,2 +1,2 @@
 # ceciclass
-CECI的BOH4M小课堂
+BOH4M小课堂
